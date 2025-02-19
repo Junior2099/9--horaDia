@@ -4,111 +4,114 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Hora do Dia </title>
+    <title>Hora do Dia</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://img.icons8.com/?size=100&id=XuwQAu2rVs97&format=png&color=000000">
 </head>
-<style>
-
-body{
-    background-color: rgb(17, 128, 128);
-    font: normal 13pt arial;
-}
-
-header{
-
- color: white;
- text-align: center;
-}
-
-section{
- background-color: white;
- border-radius: 8px;
- padding: 15px;
- width: 520px;
- margin: auto;
- box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.364);
- font: normal 18pt arial;
-
-}
-
-footer{
-
- color: white;
- text-align: center;
- font-style: italic;
-}
-
-div{
-    text-align: center;
-    padding:6px;
-}
-
-</style>
-
-
 <body onload="carregar()">
+    <style>
+        body {
+    background-color: rgb(17, 128, 128);
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    transition: background-color 0.5s ease;
+}
 
-<header>
+p{
+    font-size: 30px;
+}
 
-    <h1> Hora do Dia </h1>
+header {
+    color: white;
+    text-align: center;
+    margin-bottom: 20px;
+}
 
+section {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 520px;
+    box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.364);
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+}
 
-</header>
+section:hover {
+    box-shadow: 5px 6px 15px rgba(0, 0, 0, 0.5);
+}
 
+footer {
+    color: white;
+    text-align: center;
+    font-style: italic;
+    margin-top: 20px;
+}
 
-<section>
+div {
+    text-align: center;
+    padding: 10px;
+}
 
-<div>
+.fade-in {
+    animation: fadeIn 1s ease-in-out;
+}
 
-<p id="msg" > sua mensagem </p>
-
-</div>
-
-<div >
-
-<img id="img" src="./dia.png" alt="foto do dia">
-
-</div>
-
-
-</section>
-
-
-<footer>
-
-    <p> Um site para deixar em segundo plano... </p>
-</footer>
-
-
-
-<script>
-
-function carregar(){
-var msg = window.document.getElementById("msg");
-var img = window.document.getElementById("img");
-var data = new Date()
-var hora = data.getHours()
-
-//var hora = 22
-
-msg.innerHTML = `Agora são ${hora} horas.`
- 
-
-
-    if (hora >= 0 && hora < 12){
-            img.src ="./dia.png"
-            document.body.style.background ="#e2cd9f"
-
-     } else if (hora >= 12 && hora <= 18){
-            img.src ="./tarde.png"
-            document.body.style.background ="#b9846f"
-    } else{
-            img.src ="noite.png"
-            document.body.style.background ="#515154"
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
+    </style>
+    <header>
+        <h1>Hora do Dia</h1>
+    </header>
 
-    
-</script>
-    
+    <section>
+        <div>
+            <p id="msg">Sua mensagem</p>
+        </div>
+        <div>
+            <img id="img" src="./dia.png" alt="foto do dia" class="fade-in">
+        </div>
+    </section>
+
+    <footer>
+        <p>Um site para deixar em segundo plano...</p>
+    </footer>
+
+    <script>
+        function carregar() {
+            var msg = document.getElementById("msg");
+            var img = document.getElementById("img");
+            var data = new Date();
+            var hora = data.getHours();
+            var minutos = data.getMinutes();
+            var dia = data.toLocaleDateString('pt-BR', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+            msg.innerHTML = `Agora são ${hora}:${minutos}.<br>${dia}`;
+
+            if (hora >= 0 && hora < 12) {
+                img.src = "./dia.png";
+                document.body.style.background = "#e2cd9f";
+            } else if (hora >= 12 && hora <= 18) {
+                img.src = "./tarde.png";
+                document.body.style.background = "#b9846f";
+            } else {
+                img.src = "./noite.png";
+                document.body.style.background = "#515154";
+            }
+        }
+    </script>
 </body>
 </html>
